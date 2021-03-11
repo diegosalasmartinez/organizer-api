@@ -13,16 +13,17 @@ app.use(express.json());
 app.set('port',process.env.PORT || 5000);
 
 //Routes
-const postsRoute = require('./routes/customers');
-app.use('/customers',postsRoute);
+const usersRoute = require('./routes/users');
+app.use('/users',usersRoute);
+const tasksRoute = require('./routes/tasks');
+app.use('/tasks',tasksRoute);
 
 //Index
-app.get('/', (req,res) => {
-    res.send('It\'s alive!!!');
-});
+app.get('/', (req,res) => { res.send('It\'s alive!!!'); });
 
 //Connect to de DB
-mongoose.connect(process.env.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.DB_CONNECTION, 
+    {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 connection.once('open',() => console.log('Connected to MongoDB!'));
 
 //Listen to the server
