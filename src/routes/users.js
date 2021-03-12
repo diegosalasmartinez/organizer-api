@@ -21,4 +21,10 @@ router.get('/', (req,res) => {
         .catch(e => res.status(400).json('Error: '+e));
 });
 
+router.get('/login', (req,res) =>{
+    User.find({username: req.body.username, password: req.body.password})
+        .then(user => res.json(user))
+        .catch(e => res.status(400).json('Error: '+e));
+});
+
 module.exports = router;
