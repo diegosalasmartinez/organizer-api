@@ -21,9 +21,14 @@ router.get('/', (req,res) => {
         .catch(e => res.status(400).json('Error: '+e));
 });
 
-router.get('/login', (req,res) =>{
-    User.find({username: req.query.username, password: req.query.password})
-        .then(user => res.json(user))
+router.post('/login', (req,res) =>{
+    console.log(req.query.username);
+    console.log(req.query.password);
+    User.find({username: req.body.username, password: req.body.password})
+        .then(user =>{
+            console.log(user);
+            return res.json(user);
+        })
         .catch(e => res.status(400).json('Error: '+e));
 });
 
