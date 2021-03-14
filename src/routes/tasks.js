@@ -26,9 +26,9 @@ router.get('/', (req,res) => {
         .catch(e => res.status(400).json('Error: '+e));
 });
 
-//Select all tasks by id
-router.get('/:idTask', (req,res) => {
-    Task.findById(req.params.idTask)
+//Select all tasks by username
+router.get('/:username', (req,res) => {
+    Task.find({username: req.params.username})
         .then(tasks => res.json(tasks))
         .catch(e => res.status(400).json('Error: '+e));
 });

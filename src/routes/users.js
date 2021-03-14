@@ -22,13 +22,8 @@ router.get('/', (req,res) => {
 });
 
 router.post('/login', (req,res) =>{
-    console.log(req.query.username);
-    console.log(req.query.password);
     User.find({username: req.body.username, password: req.body.password})
-        .then(user =>{
-            console.log(user);
-            return res.json(user);
-        })
+        .then(user => res.json(user))
         .catch(e => res.status(400).json('Error: '+e));
 });
 
