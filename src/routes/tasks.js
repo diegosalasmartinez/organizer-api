@@ -33,6 +33,13 @@ router.get('/:username', (req,res) => {
         .catch(e => res.status(400).json('Error: '+e));
 });
 
+//Select a tasks by id
+router.get('/byId/:idTask', (req,res) => {
+    Task.findById(req.params.idTask)
+        .then(task => res.json(task))
+        .catch(e => res.status(400).json('Error: '+e));
+});
+
 //Update a task
 router.patch('/:idTask', (req,res) => {
     Task.updateOne(

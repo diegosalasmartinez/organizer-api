@@ -21,8 +21,8 @@ router.get('/', (req,res) => {
         .catch(e => res.status(400).json('Error: '+e));
 });
 
-router.post('/login', (req,res) =>{
-    User.find({username: req.body.username, password: req.body.password})
+router.get('/login/:username/:password', (req,res) =>{
+    User.find({username: req.params.username, password: req.params.password}).exec()
         .then(user => res.json(user))
         .catch(e => res.status(400).json('Error: '+e));
 });
