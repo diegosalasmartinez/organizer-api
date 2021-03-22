@@ -14,7 +14,19 @@ const UserSchema = Schema({
         required: true,
         trim: true,
         minlength: 8
-    }
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
 },{
     timestamps: true
 });

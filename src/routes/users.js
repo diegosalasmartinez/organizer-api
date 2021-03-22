@@ -6,7 +6,10 @@ const User = require('../models/user')
 router.post('/add', (req,res) => {
     const newUser = new User({
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        name: req.body.name,
+        lastName: req.body.lastName,
+        email: req.body.email
     });
     
     newUser.save()
@@ -16,7 +19,7 @@ router.post('/add', (req,res) => {
 
 //Select all users
 router.get('/', (req,res) => {
-    User.find()
+    User.find().select('username')
         .then(users => res.json(users))
         .catch(e => res.status(400).json('Error: '+e));
 });
