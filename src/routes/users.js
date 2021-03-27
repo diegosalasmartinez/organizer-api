@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/user')
 
 //Insert new user
-router.post('/add', (req,res) => {
+router.post('/add', async (req,res) => {
     const newUser = new User({
         username: req.body.username,
         password: req.body.password,
@@ -12,9 +12,12 @@ router.post('/add', (req,res) => {
         email: req.body.email
     });
     
-    newUser.save()
-        .then(() => res.json('User added!'))
-        .catch(e => res.status(400).json('Error: '+e));
+    try {
+        const savedUser = await newUser.save();
+        res.json(savedUser);
+    } catch (e) {
+        res.json('Error: '+e)
+    }    
 });
 
 //Select all users
