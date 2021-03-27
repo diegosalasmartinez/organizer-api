@@ -10,7 +10,6 @@ router.post('/add', (req,res) => {
         description: req.body.description,
         duration: Number(req.body.duration),
         importance: Number(req.body.importance),
-        registration_date: new Date(),
         due_date: Date.parse(req.body.due_date)
     });
     
