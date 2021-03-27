@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/user')
 
 //Insert new user
-router.post('/add', (req,res) => {
+router.post('/add', async (req,res) => {
     const newUser = new User({
         username: req.body.username,
         password: req.body.password,
@@ -12,20 +12,22 @@ router.post('/add', (req,res) => {
         email: req.body.email
     });
     
-    newUser.save()
+    await newUser.save()
         .then(() => res.json('User added!'))
         .catch(e => res.status(400).json('Error: '+e));
 });
 
 //Select all users
-router.get('/', (req,res) => {
-    User.find().select('username')
+router.get('/', async (req,res) => {
+    await User.find().select('username')
         .then(users => res.json(users))
         .catch(e => res.status(400).json('Error: '+e));
 });
 
-router.get('/login/:username/:password', (req,res) =>{
-    User.find({username: req.params.username, password: req.params.password}).exec()
+
+//Login
+router.get('/login', async (req,res) =>{
+    await User.find({username: req.query.username, password: req.query.password})
         .then(user => res.json(user))
         .catch(e => res.status(400).json('Error: '+e));
 });
