@@ -5,8 +5,8 @@ const Task = require('../models/task')
 //Insert new task
 router.post('/add', (req,res) => {
     const newTask = new Task({
-        usernameId: req.body.usernameId,
-        name: req.body.name,
+        userId: req.body.userId,
+        title: req.body.title,
         description: req.body.description,
         duration: Number(req.body.duration),
         importance: Number(req.body.importance),
@@ -26,9 +26,9 @@ router.get('/', (req,res) => {
         .catch(e => res.status(400).json('Error: '+e));
 });
 
-//Select all tasks by username
-router.get('/:usernameId', (req,res) => {
-    Task.find({usernameId: ObjectId(req.params.usernameId)})
+//Select all tasks by user
+router.get('/:userId', (req,res) => {
+    Task.find({userId: req.params.userId})
         .then(tasks => res.json(tasks))
         .catch(e => res.status(400).json('Error: '+e));
 });
@@ -45,7 +45,7 @@ router.patch('/:idTask', (req,res) => {
     Task.updateOne(
         {_id: req.params.idTask}, 
         {$set: {
-            name: req.body.name, 
+            title: req.body.name, 
             description: req.body.description, 
             duration: req.body.duration, 
             importance: req.body.importance, 

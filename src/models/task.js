@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.ObjectId;
 
 const TaskSchema = Schema({
-    username: {
-        type: String,
+    userId: {
+        type: ObjectId,
         required: true
     },
-    name: {
+    title: {
         type: String,
         required: true
     },
@@ -20,10 +21,6 @@ const TaskSchema = Schema({
     },
     importance: {
         type: Number,
-        required: true
-    },
-    registration_date: {
-        type: Date,
         required: true
     },
     due_date: {
