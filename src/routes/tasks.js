@@ -3,7 +3,7 @@ const router = express.Router();
 const Task = require('../models/task')
 
 //Insert new task
-router.post('/add', async (req,res) => {
+router.post('/add', (req,res) => {
     const newTask = new Task({
         usernameId: req.body.usernameId,
         name: req.body.name,
@@ -14,35 +14,35 @@ router.post('/add', async (req,res) => {
         due_date: Date.parse(req.body.due_date)
     });
     
-    await newTask.save()
+    newTask.save()
         .then(() => res.json('Task added!'))
         .catch(e => res.status(400).json('Error: '+e));
 });
 
 //Select all tasks
-router.get('/', async (req,res) => {
-    await Task.find()
+router.get('/', (req,res) => {
+    Task.find()
         .then(tasks => res.json(tasks))
         .catch(e => res.status(400).json('Error: '+e));
 });
 
 //Select all tasks by username
-router.get('/:usernameId', async (req,res) => {
-    await Task.find({usernameId: ObjectId(req.params.usernameId)})
+router.get('/:usernameId', (req,res) => {
+    Task.find({usernameId: ObjectId(req.params.usernameId)})
         .then(tasks => res.json(tasks))
         .catch(e => res.status(400).json('Error: '+e));
 });
 
 //Select a tasks by id
-router.get('/byId/:idTask', async (req,res) => {
-    await Task.findById(req.params.idTask)
+router.get('/byId/:idTask', (req,res) => {
+    Task.findById(req.params.idTask)
         .then(task => res.json(task))
         .catch(e => res.status(400).json('Error: '+e));
 });
 
 //Update a task
-router.patch('/:idTask', async (req,res) => {
-    await Task.updateOne(
+router.patch('/:idTask', (req,res) => {
+    Task.updateOne(
         {_id: req.params.idTask}, 
         {$set: {
             name: req.body.name, 
@@ -56,8 +56,8 @@ router.patch('/:idTask', async (req,res) => {
 })
 
 //Delete a task
-router.delete('/:idTask', async (req,res) => {
-    await Task.findByIdAndDelete(req.params.idTask)
+router.delete('/:idTask', (req,res) => {
+    Task.findByIdAndDelete(req.params.idTask)
         .then(() => res.json('Task deleted'))
         .catch(e => res.status(400).json('Error: '+e));
 });
