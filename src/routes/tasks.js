@@ -44,7 +44,7 @@ router.patch('/:idTask', (req,res) => {
     Task.updateOne(
         {_id: req.params.idTask}, 
         {$set: {
-            title: req.body.name, 
+            title: req.body.title, 
             description: req.body.description, 
             duration: req.body.duration, 
             importance: req.body.importance, 
